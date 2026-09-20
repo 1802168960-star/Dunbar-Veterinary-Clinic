@@ -69,6 +69,12 @@ Run the test suite:
 python -m pytest -q
 ```
 
+## Implemented views
+
+- `GET /farm-run?date=YYYY-MM-DD` shows the day's active farm visits in working
+  order, including property, locality, client contact, job, head count,
+  estimated duration and access notes. An empty day returns an empty list.
+
 ## Project structure
 
 ```
