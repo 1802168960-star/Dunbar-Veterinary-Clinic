@@ -69,6 +69,11 @@ Run the test suite:
 python -m pytest -q
 ```
 
+## Implemented views
+
+- `GET /clients/<id>/appointments` shows every appointment for a client across
+  all dates, including the appointment kind, status and booking detail.
+
 ## Project structure
 
 ```
