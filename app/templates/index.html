@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="intro">
+  <h1>One appointment book for both halves of the practice</h1>
+  <p>
+    The counter book and the green farm diary, held in one place: fifteen-minute
+    consultations in the two consulting rooms, and farm visits booked against a
+    property. This application talks to a local database file and keeps working
+    when the clinic internet drops out.
+  </p>
+</section>
+
+<section>
+  <h2>What is being built</h2>
+  <div class="cards">
+    <article class="card">
+      <h3>Clients, animals and properties</h3>
+      <p>Households and farming businesses, the animals they own, and the farm
+        properties the clinic visits — with the access notes the vet needs.</p>
+      <p class="status">In build — records module</p>
+    </article>
+    <article class="card">
+      <h3>Consultations</h3>
+      <p>One animal, one 15-minute slot, one of the two consulting rooms, on the
+        clinic's consulting timetable.</p>
+      <p class="status">In build — scheduling core</p>
+    </article>
+    <article class="card">
+      <h3>Farm visits</h3>
+      <p>Booked against a property with a start time and an estimated duration
+        in hours — not a slot, and not an animal.</p>
+      <p class="status">In build — scheduling core</p>
+    </article>
+    <article class="card">
+      <h3>The clinic day</h3>
+      <p>Which slots are taken and which are free, the day's farm run in working
+        order, and a client's appointments.</p>
+      <p class="status">In build — views</p>
+    </article>
+  </div>
+</section>
+{% endblock %}

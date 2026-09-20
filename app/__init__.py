@@ -1,0 +1,35 @@
+"""Application factory for the Dunbar Veterinary Clinic appointment system."""
+from pathlib import Path
+
+from flask import Flask
+
+from config import CONFIG_MAP
+from app.models import db
+
+
+def create_app(config=None):
+    """Create and configure the Flask application.
+
+    ``config`` may be a config name ("default", "test") or a dict of overrides
+    (used by the test suite)."""
+    app = Flask(__name__, instance_relative_config=True)
+
+    if isinstance(config, dict):
+        app.config.from_object(CONFIG_MAP["default"])
+        app.config.update(config)
+    else:
+        app.config.from_object(CONFIG_MAP.get(config or "default", CONFIG_MAP["default"]))
+
+    Path(app.instance_path).mkdir(parents=True, exist_ok=True)
+
+    db.init_app(app)
+
+    from app.routes.main import main_bp
+
+    app.register_blueprint(main_bp)
+
+    if app.config.get("CREATE_TABLES_ON_START", True):
+        with app.app_context():
+            db.create_all()
+
+    return app

@@ -12,9 +12,12 @@ env/
 # Local database files (not versioned)
 *.sqlite3
 *.db
+instance/
 
 # Tests and coverage
 .pytest_cache/
+pytest-cache-files-*/
+.pytest-tmp/
 .coverage
 htmlcov/
 

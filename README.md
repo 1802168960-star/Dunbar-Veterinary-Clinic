@@ -47,10 +47,47 @@ and VetLedger data migration.
 
 ## Running the application
 
-Setup and run instructions are completed with the project scaffold in Sprint 1
-(virtual environment, dependencies, seed data, tests).
+Prerequisites: Python 3.11+ and Git. No internet connection is needed at run time.
+
+```bash
+git clone https://github.com/mak1noo/Dunbar-Veterinary-Clinic.git
+cd Dunbar-Veterinary-Clinic
+python -m venv .venv
+
+# Windows
+.venv\Scripts\python -m pip install -r requirements.txt
+# macOS / Linux
+# .venv/bin/python -m pip install -r requirements.txt
+
+python scripts/seed_data.py        # create the database with sample data
+python run.py                      # start the app on http://127.0.0.1:5000
+```
+
+Run the test suite:
+
+```bash
+python -m pytest -q
+```
+
+## Project structure
+
+```
+app/__init__.py          application factory
+app/models.py            clients, animals, properties, appointments
+app/services/            consulting timetable rules and booking validation
+app/routes/              HTTP routes, grouped by module
+app/templates/           server-rendered pages
+app/static/              local CSS and assets (no CDN)
+scripts/seed_data.py     sample data from the case study documents
+tests/                   pytest suite
+```
+
+## Team workflow
+
+Every user story is delivered on a branch named `story/MSD426GXUST3-<number>-<short-name>`,
+reviewed through a pull request, and closed out in Jira.
 
 ## Links
 
-- Jira project: _to be added_
-- Confluence space: _to be added_
+- Jira project: https://scu-it.atlassian.net/jira/software/c/projects/MSD426GXUST3/boards/1995/backlog
+- Confluence space: https://scu-it.atlassian.net/wiki/spaces/MSD426GXUST3

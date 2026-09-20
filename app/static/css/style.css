@@ -1,0 +1,81 @@
+/* Local styles only — the clinic cannot rely on a CDN when the internet drops. */
+:root {
+  --ink: #1f2a24;
+  --muted: #5b6b61;
+  --paper: #f7f5ef;
+  --card: #ffffff;
+  --line: #d8d3c4;
+  --green: #2f6b4f;
+  --green-soft: #e4efe7;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font: 16px/1.55 "Segoe UI", system-ui, -apple-system, Arial, sans-serif;
+}
+
+.masthead {
+  background: var(--green);
+  color: #fff;
+  border-bottom: 3px solid #244f3b;
+}
+
+.masthead-inner {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 14px 20px;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.brand-name { font-weight: 700; letter-spacing: 0.2px; }
+.brand-sub { margin-left: 10px; opacity: 0.85; font-size: 14px; }
+
+.nav a { color: #fff; text-decoration: none; opacity: 0.9; }
+.nav a:hover { text-decoration: underline; }
+
+.page { max-width: 960px; margin: 0 auto; padding: 28px 20px 48px; }
+
+.intro h1 { margin: 0 0 8px; font-size: 28px; }
+.intro p { max-width: 68ch; color: var(--muted); }
+
+h2 { margin: 26px 0 12px; font-size: 20px; }
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.card h3 { margin: 0 0 6px; font-size: 17px; }
+.card p { margin: 0 0 8px; color: var(--muted); font-size: 15px; }
+.card .status {
+  display: inline-block;
+  margin: 0;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--green-soft);
+  color: var(--green);
+  font-size: 13px;
+}
+
+.footer {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 12px 20px 28px;
+  color: var(--muted);
+  font-size: 14px;
+}
