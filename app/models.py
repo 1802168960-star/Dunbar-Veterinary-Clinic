@@ -127,6 +127,7 @@ class Appointment(db.Model):
     # Farm visit shape.
     property_id = db.Column(db.Integer, db.ForeignKey("properties.id"))
     estimated_hours = db.Column(db.Numeric(4, 2))
+    head_count = db.Column(db.Integer)
 
     client = db.relationship("Client", back_populates="appointments")
     animal = db.relationship("Animal", back_populates="appointments")
