@@ -14,6 +14,8 @@ Rules taken from the case study and the photocopied appointment book page
 """
 from datetime import date, datetime, time, timedelta
 
+from app.models import CONSULTATION, FARM_VISIT, STATUS_BOOKED, Appointment
+
 SLOT_MINUTES = 15
 CONSULTING_ROOMS = (1, 2)
 
@@ -97,3 +99,57 @@ def validate_farm_visit(*, day, start, farm_property, estimated_hours):
             elif abs(hours / FARM_VISIT_STEP_HOURS - round(hours / FARM_VISIT_STEP_HOURS)) > 1e-9:
                 problems.append("The estimated duration must be in half-hour steps.")
     return problems
+
+
+def reschedule_appointment(
+    appointment,
+    *,
+    day,
+    start,
+    room=None,
+    estimated_hours=None,
+):
+    """Validate and apply a move to an existing appointment.
+
+    The function returns a list of validation problems. When the list is
+    empty, the appointment object has been updated in the session but the
+    caller remains responsible for committing the transaction.
+    """
+    if appointment.kind == CONSULTATION:
+        selected_room = room if room is not None else appointment.room
+        existing_bookings = Appointment.query.filter(
+            Appointment.kind == CONSULTATION,
+            Appointment.status == STATUS_BOOKED,
+            Appointment.date == day,
+            Appointment.id != appointment.id,
+        ).all()
+        problems = validate_consultation(
+            day=day,
+            start=start,
+            animal=appointment.animal,
+            room=selected_room,
+            existing_bookings=existing_bookings,
+        )
+        if not problems:
+            appointment.date = day
+            appointment.start_time = start
+            appointment.room = selected_room
+        return problems
+
+    if appointment.kind == FARM_VISIT:
+        selected_hours = (
+            estimated_hours if estimated_hours is not None else appointment.estimated_hours
+        )
+        problems = validate_farm_visit(
+            day=day,
+            start=start,
+            farm_property=appointment.farm_property,
+            estimated_hours=selected_hours,
+        )
+        if not problems:
+            appointment.date = day
+            appointment.start_time = start
+            appointment.estimated_hours = selected_hours
+        return problems
+
+    return ["Unsupported appointment kind."]

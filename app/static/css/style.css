@@ -72,6 +72,93 @@ h2 { margin: 26px 0 12px; font-size: 20px; }
   font-size: 13px;
 }
 
+.page-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+.page-head h1 { margin: 0 0 6px; font-size: 28px; }
+.eyebrow {
+  margin: 0 0 6px;
+  color: var(--green);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.lede { max-width: 68ch; margin: 0; color: var(--muted); }
+.button-link {
+  display: inline-flex;
+  padding: 8px 12px;
+  border: 1px solid var(--green);
+  border-radius: 6px;
+  color: var(--green);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.notice {
+  margin-bottom: 18px;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--card);
+}
+.notice.success { border-color: #9ac9aa; background: #eef8f1; color: #246143; }
+.notice.error { border-color: #dfa39d; background: #fff1ef; color: #8b2e2a; }
+.notice ul { margin: 6px 0 0 20px; }
+
+.form-card {
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--card);
+}
+.booking-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 14px;
+  margin: 0 0 24px;
+}
+.booking-summary div { padding-bottom: 10px; border-bottom: 1px solid var(--line); }
+.booking-summary dt { color: var(--muted); font-size: 13px; font-weight: 700; text-transform: uppercase; }
+.booking-summary dd { margin: 4px 0 0; }
+
+.reschedule-form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 14px;
+  align-items: end;
+}
+.field { display: flex; flex-direction: column; gap: 6px; }
+.field label { font-weight: 600; }
+.field input,
+.field select {
+  width: 100%;
+  padding: 9px 10px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: #fff;
+  font: inherit;
+}
+.reschedule-form button {
+  min-height: 42px;
+  padding: 9px 14px;
+  border: 0;
+  border-radius: 6px;
+  background: var(--green);
+  color: #fff;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+@media (max-width: 640px) {
+  .page-head { flex-direction: column; }
+}
+
 .footer {
   max-width: 960px;
   margin: 0 auto;
