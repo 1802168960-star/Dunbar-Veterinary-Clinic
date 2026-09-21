@@ -42,7 +42,8 @@
 
     <div class="field">
       <label for="animal_id">Animal</label>
-      <select id="animal_id" name="animal_id" required>
+      <select id="animal_id" name="animal_id" required
+              data-error="Please choose an animal.">
         <option value="">— choose the animal —</option>
         {% for client_name, animals in animal_groups %}
           <optgroup label="{{ client_name }}">
@@ -58,7 +59,8 @@
 
     <div class="field">
       <label for="start_time">Time</label>
-      <select id="start_time" name="start_time" required>
+      <select id="start_time" name="start_time" required
+              data-error="Please choose a time slot.">
         <option value="">— choose a 15-minute slot —</option>
         {% for slot in slots %}
           <option value="{{ slot.value }}"
@@ -69,7 +71,8 @@
 
     <div class="field">
       <label for="room">Consulting room</label>
-      <select id="room" name="room" required>
+      <select id="room" name="room" required
+              data-error="Please choose a consulting room.">
         {% for room in rooms %}
           <option value="{{ room }}"
             {%- if chosen.get('room') == room|string %} selected{% endif %}>Room {{ room }}</option>
@@ -86,4 +89,6 @@
     <button class="primary" type="submit">Book this consultation</button>
   </form>
 </section>
+
+<script src="{{ url_for('static', filename='js/form-validation.js') }}"></script>
 {% endblock %}

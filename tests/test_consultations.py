@@ -144,3 +144,17 @@ def test_cancelled_bookings_do_not_block_the_slot(app, client, biscuit):
 
 def test_an_unknown_consultation_is_a_404(client):
     assert client.get("/consultations/999").status_code == 404
+
+
+def test_missing_choices_are_explained_in_english(client, biscuit):
+    page = client.get(f"/consultations/new?date={MONDAY}").get_data(as_text=True)
+    assert 'data-error="Please choose an animal."' in page
+    assert 'data-error="Please choose a time slot."' in page
+    assert 'data-error="Please choose a consulting room."' in page
+    assert "js/form-validation.js" in page
+
+
+def test_the_validation_script_is_served(client):
+    response = client.get("/static/js/form-validation.js")
+    assert response.status_code == 200
+    assert b"setCustomValidity" in response.data
