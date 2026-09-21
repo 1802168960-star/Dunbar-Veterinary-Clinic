@@ -69,6 +69,12 @@ Run the test suite:
 python -m pytest -q
 ```
 
+## Implemented views
+
+- `GET /appointments/<id>/reschedule` provides a rescheduling form for both
+  consultation and farm-visit appointments. It reuses new-booking validation,
+  moves only the selected appointment and reports validation errors.
+
 ## Project structure
 
 ```

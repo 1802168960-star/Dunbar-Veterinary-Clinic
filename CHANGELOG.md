@@ -13,3 +13,6 @@ project uses semantic-ish version numbers (v0.x during delivery, v1.0 at handove
   clients, animals, properties and the two kinds of appointments, consulting
   timetable rules and booking validation helpers, pytest suite, GitHub Actions
   CI, pull request template, and a seed script with the case study's sample data.
+- 2026-09-21 — MSD426GXUST3-53: appointment rescheduling for consultations and
+  farm visits, reusing the new-booking validation rules and updating only the
+  selected appointment.
