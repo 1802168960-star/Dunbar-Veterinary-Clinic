@@ -24,8 +24,10 @@ def create_app(config=None):
 
     db.init_app(app)
 
+    from app.routes.consultations import consultations_bp
     from app.routes.main import main_bp
 
+    app.register_blueprint(consultations_bp)
     app.register_blueprint(main_bp)
 
     if app.config.get("CREATE_TABLES_ON_START", True):

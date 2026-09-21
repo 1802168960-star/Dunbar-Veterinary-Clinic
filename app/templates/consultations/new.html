@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% block title %}Book a consultation — Dunbar Veterinary Clinic{% endblock %}
+
+{% block content %}
+<section class="intro">
+  <h1>Book an in-clinic consultation</h1>
+  <p>One animal, one 15-minute slot, one of the two consulting rooms.</p>
+</section>
+
+{% if problems %}
+  <div class="alert alert-error">
+    <p>This booking cannot go ahead yet:</p>
+    <ul>
+      {% for problem in problems %}<li>{{ problem }}</li>{% endfor %}
+    </ul>
+  </div>
+{% endif %}
+
+<section class="panel">
+  <h2>1. Choose the day</h2>
+  <form class="inline-form" method="get" action="{{ url_for('consultations.new_consultation') }}">
+    <span class="field">
+      <label for="date">Consulting day</label>
+      <input type="date" id="date" name="date" value="{{ day.isoformat() }}">
+    </span>
+    <button type="submit">Show this day</button>
+  </form>
+  {% if slots %}
+    <p class="hint">{{ day.strftime('%A %d %B %Y') }} — {{ slots|length }} bookable slots,
+      {{ rooms|length }} consulting rooms.</p>
+  {% else %}
+    <p class="hint">The clinic does not take consultations on
+      {{ day.strftime('%A') }}s. Pick another day.</p>
+  {% endif %}
+</section>
+
+<section class="panel">
+  <h2>2. Book the slot</h2>
+  <form method="post" action="{{ url_for('consultations.new_consultation') }}">
+    <input type="hidden" name="date" value="{{ day.isoformat() }}">
+
+    <div class="field">
+      <label for="animal_id">Animal</label>
+      <select id="animal_id" name="animal_id" required>
+        <option value="">— choose the animal —</option>
+        {% for client_name, animals in animal_groups %}
+          <optgroup label="{{ client_name }}">
+            {% for animal in animals %}
+              <option value="{{ animal.id }}"
+                {%- if chosen.get('animal_id') == animal.id|string %} selected{% endif %}>
+                {{- animal.name }} ({{ animal.species }})</option>
+            {% endfor %}
+          </optgroup>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div class="field">
+      <label for="start_time">Time</label>
+      <select id="start_time" name="start_time" required>
+        <option value="">— choose a 15-minute slot —</option>
+        {% for slot in slots %}
+          <option value="{{ slot.value }}"
+            {%- if chosen.get('start_time') == slot.value %} selected{% endif %}>{{ slot.label }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div class="field">
+      <label for="room">Consulting room</label>
+      <select id="room" name="room" required>
+        {% for room in rooms %}
+          <option value="{{ room }}"
+            {%- if chosen.get('room') == room|string %} selected{% endif %}>Room {{ room }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div class="field">
+      <label for="reason">Reason (optional)</label>
+      <input type="text" id="reason" name="reason" maxlength="200"
+             value="{{ chosen.get('reason', '') }}" placeholder="e.g. F3 vaccination">
+    </div>
+
+    <button class="primary" type="submit">Book this consultation</button>
+  </form>
+</section>
+{% endblock %}
