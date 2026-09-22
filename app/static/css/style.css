@@ -166,3 +166,63 @@ button:hover,
 
 .summary dt { font-weight: 600; }
 .summary dd { margin: 0; }
+
+
+/* Client register (story MSD426GXUST3-39).
+   The panel, field, button and alert blocks above are shared with the booking form. */
+
+.intro-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.field input[type="tel"],
+.field input[type="email"],
+.field textarea {
+  padding: 8px 10px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  font: inherit;
+  background: #fff;
+  color: var(--ink);
+}
+
+.field textarea { resize: vertical; }
+.field-check label { display: flex; align-items: center; gap: 8px; font-weight: 400; }
+
+.required {
+  margin-left: 6px;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 400;
+}
+
+.alert-ok {
+  background: var(--green-soft);
+  border: 1px solid #a9c9b5;
+  color: #244f3b;
+}
+
+.records {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 18px;
+  background: var(--card);
+  border: 1px solid var(--line);
+}
+
+.records th,
+.records td {
+  text-align: left;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--line);
+  font-size: 15px;
+  vertical-align: top;
+}
+
+.records th { background: var(--green-soft); font-size: 14px; }
+.records tr:last-child td { border-bottom: 0; }
+.records .just-added td { background: #f2f8f3; }
