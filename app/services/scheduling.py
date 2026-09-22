@@ -14,6 +14,8 @@ Rules taken from the case study and the photocopied appointment book page
 """
 from datetime import date, datetime, time, timedelta
 
+from app.models import STATUS_CANCELLED
+
 SLOT_MINUTES = 15
 CONSULTING_ROOMS = (1, 2)
 
@@ -97,3 +99,15 @@ def validate_farm_visit(*, day, start, farm_property, estimated_hours):
             elif abs(hours / FARM_VISIT_STEP_HOURS - round(hours / FARM_VISIT_STEP_HOURS)) > 1e-9:
                 problems.append("The estimated duration must be in half-hour steps.")
     return problems
+
+
+def cancel_appointment(appointment):
+    """Mark an appointment cancelled without deleting its record.
+
+    Returns ``True`` when the status changed and ``False`` when the
+    appointment was already cancelled. The caller owns the transaction.
+    """
+    if appointment.status == STATUS_CANCELLED:
+        return False
+    appointment.status = STATUS_CANCELLED
+    return True
