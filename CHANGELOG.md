@@ -17,3 +17,6 @@ project uses semantic-ish version numbers (v0.x during delivery, v1.0 at handove
   form for one animal, one 15-minute slot and one of the two consulting rooms,
   server-side validation against the consulting timetable, a booking
   confirmation page, and automated tests.
+- 2026-09-21 — Deployment configuration: `.env` support with a checked-in
+  `.env.example`, bootstrap and run scripts for Windows and Unix, a WSGI entry
+  point, and a deployment guide (`docs/DEPLOYMENT.md`).
