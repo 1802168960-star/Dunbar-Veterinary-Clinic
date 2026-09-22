@@ -69,6 +69,12 @@ Run the test suite:
 python -m pytest -q
 ```
 
+## Implemented views
+
+- `GET/POST /appointments/<id>/cancel` cancels an appointment without deleting
+  its record. Cancelled appointments remain visible and are distinguishable
+  from live bookings; no other appointment is changed.
+
 ## Project structure
 
 ```
