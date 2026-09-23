@@ -76,6 +76,14 @@ Run the test suite:
 python -m pytest -q
 ```
 
+## Offline operation
+
+- Open `/offline-status` to check that the application is using local SQLite
+  storage and has no external runtime asset references.
+- Automated tests verify that the default database is local, that records
+  survive an application restart, and that templates/static files do not depend
+  on a CDN or other external HTTP resource.
+
 Settings are read from environment variables, or from a `.env` file copied from
 `.env.example`; see [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md) for the settings,
 the small-server setup and backup notes.
