@@ -20,3 +20,8 @@ project uses semantic-ish version numbers (v0.x during delivery, v1.0 at handove
 - 2026-09-21 — Deployment configuration: `.env` support with a checked-in
   `.env.example`, bootstrap and run scripts for Windows and Unix, a WSGI entry
   point, and a deployment guide (`docs/DEPLOYMENT.md`).
+- 2026-09-22 — Client records (`MSD426GXUST3-39`): the front desk can add a
+  client with the required full name and phone number plus optional email,
+  postal address, notes and SMS consent, with the rules in
+  `app/services/records.py`, the new client shown at once in the client list,
+  and automated tests for the valid and invalid paths.
