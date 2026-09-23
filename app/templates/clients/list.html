@@ -14,7 +14,8 @@
 
 {% if added %}
   <div class="alert alert-ok">
-    <p>{{ added.name }} is now on file and can be booked in.</p>
+    <p>{{ added.name }} is now on file and can be booked in.
+      <a href="{{ url_for('clients.show_client', client_id=added.id) }}">Open the record</a>.</p>
   </div>
 {% endif %}
 
@@ -32,7 +33,7 @@
     <tbody>
       {% for record in clients %}
         <tr{% if added and record.id == added.id %} class="just-added"{% endif %}>
-          <td>{{ record.name }}</td>
+          <td><a href="{{ url_for('clients.show_client', client_id=record.id) }}">{{ record.name }}</a></td>
           <td>{{ record.phone }}</td>
           <td>{{ record.email or "—" }}</td>
           <td>{{ record.postal_address or "—" }}</td>
