@@ -1,8 +1,14 @@
 """Client record rules: what the front desk must capture before work is booked.
 
-Story MSD426GXUST3-39. The client record comes first: nothing can be booked,
-in a consulting room or on a farm run, until the household or farming business
-is on file with a name and a number to ring back.
+Stories MSD426GXUST3-39 and MSD426GXUST3-40. The client record comes first:
+nothing can be booked, in a consulting room or on a farm run, until the
+household or farming business is on file with a name and a number to ring
+back.
+
+The register is a working document rather than a form filled in once. A name
+gets misspelt over the counter, a mobile number is replaced, a household moves
+and wants the account sent somewhere else, so the same rules that let a client
+be added are the ones that let the record be put right afterwards.
 
 The rules live here rather than in the route module so they can be unit tested
 on their own, the same way the consulting timetable rules live in
@@ -26,10 +32,12 @@ def clean(value):
 
 
 def validate_client(*, name, phone, email=None, postal_address=None):
-    """Return the problems with a new client record (empty list = valid).
+    """Return the problems with a client record (empty list = valid).
 
     Reception takes these details over the counter, so every message says what
-    to do next rather than what went wrong inside the application.
+    to do next rather than what went wrong inside the application. The same
+    checks are used when a client is added and when the record is corrected:
+    a correction is not a way around the rules.
     """
     problems = []
 
@@ -58,3 +66,20 @@ def validate_client(*, name, phone, email=None, postal_address=None):
         problems.append(f"Keep the postal address to {ADDRESS_MAX} characters or fewer.")
 
     return problems
+
+
+def client_columns(*, name, phone, email=None, postal_address=None, notes=None, sms_consent=False):
+    """The cleaned column values for a client record.
+
+    Both the registration form (story -39) and the correction form (story -40)
+    go through here, so the values written when a record is corrected are
+    scrubbed exactly the way they were when it was first added.
+    """
+    return {
+        "name": clean(name),
+        "phone": clean(phone),
+        "email": clean(email) or None,
+        "postal_address": clean(postal_address) or None,
+        "notes": clean(notes) or None,
+        "sms_consent": bool(sms_consent),
+    }

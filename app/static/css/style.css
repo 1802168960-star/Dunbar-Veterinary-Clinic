@@ -226,3 +226,31 @@ button:hover,
 .records th { background: var(--green-soft); font-size: 14px; }
 .records tr:last-child td { border-bottom: 0; }
 .records .just-added td { background: #f2f8f3; }
+
+/* Looking at a client record and correcting it (story MSD426GXUST3-40).
+   Everything else on these two pages reuses the blocks above. */
+
+.records a {
+  color: var(--green);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.records a:hover { text-decoration: underline; }
+
+.summary dd { overflow-wrap: anywhere; }
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-top: 6px;
+}
+
+.actions .quiet {
+  color: var(--muted);
+  text-decoration: none;
+}
+
+.actions .quiet:hover { text-decoration: underline; }

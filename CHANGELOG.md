@@ -25,3 +25,11 @@ project uses semantic-ish version numbers (v0.x during delivery, v1.0 at handove
   postal address, notes and SMS consent, with the rules in
   `app/services/records.py`, the new client shown at once in the client list,
   and automated tests for the valid and invalid paths.
+- 2026-09-23 — Viewing and correcting a client record (`MSD426GXUST3-40`): each
+  client in the register now has a page of their own showing the details on
+  file alongside their animals and farm properties, with a correction form
+  that leads on from it. The same rules validate an addition and a
+  correction, a rejected correction leaves the register untouched, and the
+  record is changed in place so the client id and every booking already made
+  against it survive. Automated tests cover the read path, the write path and
+  the rejected paths.
