@@ -6,6 +6,7 @@ from app.models import (
     CONSULTATION,
     FARM_VISIT,
     STATUS_BOOKED,
+    STATUS_CANCELLED,
     Animal,
     Appointment,
     Client,
@@ -177,3 +178,49 @@ def test_reschedule_post_shows_validation_errors_without_moving(app, client):
     with app.app_context():
         unchanged = db.session.get(Appointment, appointment_id)
         assert unchanged.start_time == time(8, 30)
+
+
+def test_only_live_bookings_can_be_rescheduled(app, client):
+    with app.app_context():
+        first, _, _ = _booking_set()
+        first.status = STATUS_CANCELLED
+        db.session.commit()
+        appointment_id = first.id
+
+    page = client.get(f"/appointments/{appointment_id}/reschedule").get_data(as_text=True)
+    assert "Only a live booking can be rescheduled." in page
+    assert "Move appointment" not in page
+
+    response = client.post(
+        f"/appointments/{appointment_id}/reschedule",
+        data={"date": "2026-09-22", "time": "10:00", "room": "1"},
+    )
+    assert response.status_code == 200
+    with app.app_context():
+        saved = db.session.get(Appointment, appointment_id)
+        assert saved.status == STATUS_CANCELLED
+        assert saved.date == MONDAY
+        assert saved.start_time == time(8, 30)
+
+
+def test_consultation_confirmation_links_to_reschedule(app, client):
+    with app.app_context():
+        first, _, _ = _booking_set()
+        appointment_id = first.id
+
+    page = client.get(f"/consultations/{appointment_id}").get_data(as_text=True)
+
+    assert f"/appointments/{appointment_id}/reschedule" in page
+    assert "Reschedule this appointment" in page
+
+
+def test_client_history_links_booked_appointments_to_reschedule(app, client):
+    with app.app_context():
+        first, _, _ = _booking_set()
+        client_id = first.client_id
+        appointment_id = first.id
+
+    page = client.get(f"/clients/{client_id}/appointments").get_data(as_text=True)
+
+    assert f"/appointments/{appointment_id}/reschedule" in page
+    assert "Reschedule this appointment" in page

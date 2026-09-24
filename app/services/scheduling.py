@@ -113,8 +113,11 @@ def reschedule_appointment(
 
     The function returns a list of validation problems. When the list is
     empty, the appointment object has been updated in the session but the
-    caller remains responsible for committing the transaction.
+    caller remains responsible for committing the transaction. Only live
+    bookings may be moved; cancelled and finished records are history.
     """
+    if appointment.status != STATUS_BOOKED:
+        return ["Only a live booking can be rescheduled."]
     if appointment.kind == CONSULTATION:
         selected_room = room if room is not None else appointment.room
         existing_bookings = Appointment.query.filter(
@@ -153,3 +156,14 @@ def reschedule_appointment(
         return problems
 
     return ["Unsupported appointment kind."]
+def appointments_for_client(client_id):
+    """Return every appointment for a client in chronological order."""
+    return (
+        Appointment.query.filter(Appointment.client_id == client_id)
+        .order_by(
+            Appointment.date.asc(),
+            Appointment.start_time.asc(),
+            Appointment.id.asc(),
+        )
+        .all()
+    )

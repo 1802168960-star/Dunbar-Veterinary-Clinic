@@ -15,13 +15,13 @@
 </section>
 
 {% if updated %}
-<div class="notice success" role="status">
+<div class="alert alert-ok" role="status">
   Appointment updated successfully.
 </div>
 {% endif %}
 
 {% if errors %}
-<div class="notice error" role="alert">
+<div class="alert alert-error" role="alert">
   <strong>The appointment was not moved.</strong>
   <ul>
     {% for error in errors %}
@@ -31,7 +31,7 @@
 </div>
 {% endif %}
 
-<section class="form-card">
+<section class="panel">
   <dl class="booking-summary">
     <div>
       <dt>Client</dt>
@@ -63,6 +63,7 @@
     </div>
   </dl>
 
+  {% if appointment.status == 'booked' %}
   <form method="post" class="reschedule-form">
     <div class="field">
       <label for="date">New date</label>
@@ -92,5 +93,8 @@
 
     <button type="submit">Move appointment</button>
   </form>
+  {% else %}
+  <p class="hint">Only a live booking can be rescheduled. Cancelled, completed and no-show records are kept as history.</p>
+  {% endif %}
 </section>
 {% endblock %}

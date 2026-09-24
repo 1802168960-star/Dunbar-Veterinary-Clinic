@@ -157,3 +157,17 @@ class Appointment(db.Model):
 
     def __repr__(self):  # pragma: no cover - debug helper
         return f"<Appointment {self.id} {self.kind} {self.date} {self.start_time} ({self.status})>"
+
+    @property
+    def kind_label(self):
+        """Return the user-facing label for this appointment kind."""
+        if self.kind == CONSULTATION:
+            return "Consultation"
+        if self.kind == FARM_VISIT:
+            return "Farm visit"
+        return self.kind.replace("_", " ").title()
+
+    @property
+    def status_label(self):
+        """Return the user-facing label for this appointment status."""
+        return self.status.replace("_", " ").title()
