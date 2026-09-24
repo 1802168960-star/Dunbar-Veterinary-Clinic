@@ -14,7 +14,7 @@ Rules taken from the case study and the photocopied appointment book page
 """
 from datetime import date, datetime, time, timedelta
 
-from app.models import STATUS_CANCELLED
+from app.models import STATUS_BOOKED, STATUS_CANCELLED
 
 SLOT_MINUTES = 15
 CONSULTING_ROOMS = (1, 2)
@@ -102,12 +102,13 @@ def validate_farm_visit(*, day, start, farm_property, estimated_hours):
 
 
 def cancel_appointment(appointment):
-    """Mark an appointment cancelled without deleting its record.
+    """Mark a live booking cancelled without deleting its record.
 
-    Returns ``True`` when the status changed and ``False`` when the
-    appointment was already cancelled. The caller owns the transaction.
+    Returns ``True`` when the status changed and ``False`` when the appointment
+    was already cancelled or has already happened (completed/no-show). The
+    caller owns the transaction.
     """
-    if appointment.status == STATUS_CANCELLED:
+    if appointment.status != STATUS_BOOKED:
         return False
     appointment.status = STATUS_CANCELLED
     return True

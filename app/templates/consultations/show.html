@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}Consultation booked — Dunbar Veterinary Clinic{% endblock %}
+
+{% block content %}
+<section class="intro">
+  <h1>Consultation booked</h1>
+  <p>{{ appointment.animal.name }} is in the book for
+    {{ appointment.date.strftime('%A %d %B %Y') }}.</p>
+</section>
+
+<section class="panel">
+  <dl class="summary">
+    <dt>Animal</dt><dd>{{ appointment.animal.name }} ({{ appointment.animal.species }})</dd>
+    <dt>Client</dt><dd>{{ appointment.client.name }} · {{ appointment.client.phone }}</dd>
+    <dt>Day</dt><dd>{{ appointment.date.strftime('%A %d %B %Y') }}</dd>
+    <dt>Time</dt><dd>{{ appointment.start_time.strftime('%H:%M') }} — 15 minutes</dd>
+    <dt>Room</dt><dd>Room {{ appointment.room }}</dd>
+    {% if appointment.reason %}<dt>Reason</dt><dd>{{ appointment.reason }}</dd>{% endif %}
+    <dt>Status</dt><dd>{{ appointment.status }}</dd>
+  </dl>
+  <p class="hint">Reference: appointment #{{ appointment.id }}.</p>
+  {% if appointment.status == 'booked' %}
+  <p>
+    <a class="button" href="{{ url_for('appointments.cancel_appointment', appointment_id=appointment.id) }}">
+      Cancel this appointment</a>
+  </p>
+  {% endif %}
+  <p>
+    <a class="button" href="{{ url_for('consultations.new_consultation', date=appointment.date.isoformat()) }}">
+      Book another consultation</a>
+  </p>
+</section>
+{% endblock %}

@@ -63,17 +63,31 @@ python scripts/seed_data.py        # create the database with sample data
 python run.py                      # start the app on http://127.0.0.1:5000
 ```
 
+On Windows the same steps are wrapped in two scripts:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts\bootstrap.ps1   # venv + dependencies + .env + sample data
+powershell -ExecutionPolicy Bypass -File scripts\run.ps1         # start the app
+```
+
 Run the test suite:
 
 ```bash
 python -m pytest -q
 ```
 
+## Configuration
+
+Settings are read from environment variables, or from a `.env` file copied from
+`.env.example`; see [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md) for the settings,
+the small-server setup and backup notes.
+
 ## Implemented views
 
-- `GET/POST /appointments/<id>/cancel` cancels an appointment without deleting
+- `GET/POST /appointments/<id>/cancel` cancels a live booking without deleting
   its record. Cancelled appointments remain visible and are distinguishable
-  from live bookings; no other appointment is changed.
+  from live bookings; completed and no-show records are protected from
+  cancellation, and no other appointment is changed.
 
 ## Project structure
 
