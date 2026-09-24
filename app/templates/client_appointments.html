@@ -47,7 +47,10 @@
             <span class="secondary-line">{{ appointment.reason }}</span>
           {% endif %}
           {% if appointment.status == 'booked' %}
-            <span class="secondary-line"><a href="{{ url_for('rescheduling.reschedule_appointment', appointment_id=appointment.id) }}">Reschedule this appointment</a></span>
+            <span class="secondary-line">
+              <a href="{{ url_for('rescheduling.reschedule_appointment', appointment_id=appointment.id) }}">Reschedule this appointment</a> ·
+              <a href="{{ url_for('appointments.cancel_appointment', appointment_id=appointment.id) }}">Cancel this appointment</a>
+            </span>
           {% endif %}
         </td>
       </tr>

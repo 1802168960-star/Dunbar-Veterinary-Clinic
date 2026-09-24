@@ -84,6 +84,10 @@ the small-server setup and backup notes.
 
 ## Implemented views
 
+- `GET/POST /appointments/<id>/cancel` cancels a live booking without deleting
+  its record. Cancelled appointments remain visible and are distinguishable
+  from live bookings; completed and no-show records are protected from
+  cancellation, and no other appointment is changed.
 - `GET /farm-run?date=YYYY-MM-DD` shows the day's active farm visits in working
   order, including property, locality, client contact, job, head count,
   estimated duration and access notes. An empty day returns an empty list.

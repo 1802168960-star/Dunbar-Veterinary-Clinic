@@ -101,6 +101,17 @@ def validate_farm_visit(*, day, start, farm_property, estimated_hours):
     return problems
 
 
+def cancel_appointment(appointment):
+    """Mark a live booking cancelled without deleting its record.
+
+    Returns ``True`` when the status changed and ``False`` when the appointment
+    was already cancelled or has already happened (completed/no-show). The
+    caller owns the transaction.
+    """
+    if appointment.status != STATUS_BOOKED:
+        return False
+    appointment.status = STATUS_CANCELLED
+    return True
 def reschedule_appointment(
     appointment,
     *,
