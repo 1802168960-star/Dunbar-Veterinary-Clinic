@@ -192,3 +192,14 @@ def test_cancelling_frees_the_slot_for_a_new_booking(app, client):
         ).all()
         assert len(live) == 1
         assert live[0].id != appointment_id
+
+
+def test_consultation_confirmation_links_to_cancel(app, client):
+    with app.app_context():
+        first, _ = _appointments()
+        appointment_id = first.id
+
+    page = client.get(f"/consultations/{appointment_id}").get_data(as_text=True)
+
+    assert f"/appointments/{appointment_id}/cancel" in page
+    assert "Cancel this appointment" in page

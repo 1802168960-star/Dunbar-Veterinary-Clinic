@@ -19,6 +19,7 @@ from flask import Blueprint, abort, redirect, render_template, request, url_for
 
 from app.models import Client, db
 from app.services.records import client_columns, validate_client
+from app.services.scheduling import appointments_for_client
 
 clients_bp = Blueprint("clients", __name__, url_prefix="/clients")
 
@@ -104,6 +105,17 @@ def show_client(client_id):
         "clients/detail.html",
         record=record,
         updated=request.args.get("updated") == "1",
+    )
+
+
+@clients_bp.get("/<int:client_id>/appointments")
+def client_appointments(client_id):
+    """Every appointment for one client, across all dates."""
+    record = _record_or_404(client_id)
+    return render_template(
+        "client_appointments.html",
+        client_record=record,
+        appointments=appointments_for_client(record.id),
     )
 
 
