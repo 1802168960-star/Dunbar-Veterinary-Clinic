@@ -14,6 +14,8 @@ Rules taken from the case study and the photocopied appointment book page
 """
 from datetime import date, datetime, time, timedelta
 
+from app.models import Appointment
+
 SLOT_MINUTES = 15
 CONSULTING_ROOMS = (1, 2)
 
@@ -97,3 +99,16 @@ def validate_farm_visit(*, day, start, farm_property, estimated_hours):
             elif abs(hours / FARM_VISIT_STEP_HOURS - round(hours / FARM_VISIT_STEP_HOURS)) > 1e-9:
                 problems.append("The estimated duration must be in half-hour steps.")
     return problems
+
+
+def appointments_for_client(client_id):
+    """Return every appointment for a client in chronological order."""
+    return (
+        Appointment.query.filter(Appointment.client_id == client_id)
+        .order_by(
+            Appointment.date.asc(),
+            Appointment.start_time.asc(),
+            Appointment.id.asc(),
+        )
+        .all()
+    )

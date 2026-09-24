@@ -72,6 +72,73 @@ h2 { margin: 26px 0 12px; font-size: 20px; }
   font-size: 13px;
 }
 
+.page-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+.page-head h1 { margin: 0 0 6px; font-size: 28px; }
+.eyebrow {
+  margin: 0 0 6px;
+  color: var(--green);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.lede { max-width: 68ch; margin: 0; color: var(--muted); }
+
+.button-link {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 12px;
+  border: 1px solid var(--green);
+  border-radius: 6px;
+  color: var(--green);
+  font-weight: 600;
+  text-decoration: none;
+}
+.button-link:hover { background: var(--green-soft); }
+
+.table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--card);
+}
+.data-table { width: 100%; min-width: 760px; border-collapse: collapse; }
+.data-table th,
+.data-table td { padding: 12px 14px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+.data-table th { background: var(--green-soft); color: var(--green); font-size: 13px; letter-spacing: 0.03em; text-transform: uppercase; }
+.data-table tr:last-child td { border-bottom: 0; }
+.time-cell { font-weight: 700; white-space: nowrap; }
+.secondary-line { display: block; margin-top: 3px; color: var(--muted); font-size: 14px; }
+
+.kind-chip,
+.status-chip {
+  display: inline-block;
+  padding: 3px 8px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.kind-chip { background: var(--green-soft); color: var(--green); }
+.status-chip { background: #edf1ee; color: var(--ink); }
+.status-cancelled { background: #f7e3e1; color: #8b2e2a; }
+.status-completed { background: #e4efe7; color: #246143; }
+.status-no_show { background: #f6ecd8; color: #805c12; }
+
+.empty-state { padding: 28px; border: 1px dashed var(--line); border-radius: 8px; background: var(--card); }
+.empty-state h2 { margin-top: 0; }
+
+@media (max-width: 640px) {
+  .page-head { flex-direction: column; }
+}
+
 .footer {
   max-width: 960px;
   margin: 0 auto;
