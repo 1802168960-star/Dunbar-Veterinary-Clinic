@@ -159,9 +159,36 @@ h2 { margin: 26px 0 12px; font-size: 20px; }
 .status-cancelled { background: #f7e3e1; color: #8b2e2a; }
 .status-completed { background: #e4efe7; color: #246143; }
 .status-no_show { background: #f6ecd8; color: #805c12; }
-
 .empty-state { padding: 28px; border: 1px dashed var(--line); border-radius: 8px; background: var(--card); }
 .empty-state h2 { margin-top: 0; }
+
+/* Rescheduling (story MSD426GXUST3-53). */
+.booking-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 14px;
+  margin: 0 0 24px;
+}
+.booking-summary div { padding-bottom: 10px; border-bottom: 1px solid var(--line); }
+.booking-summary dt { color: var(--muted); font-size: 13px; font-weight: 700; text-transform: uppercase; }
+.booking-summary dd { margin: 4px 0 0; }
+.reschedule-form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 14px;
+  align-items: end;
+}
+.reschedule-form .field { margin-bottom: 0; max-width: none; }
+.reschedule-form .field input,
+.reschedule-form .field select {
+  width: 100%;
+  padding: 9px 10px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: #fff;
+  font: inherit;
+}
+.reschedule-form button { min-height: 42px; }
 
 @media (max-width: 720px) {
   .page-head { align-items: stretch; flex-direction: column; }

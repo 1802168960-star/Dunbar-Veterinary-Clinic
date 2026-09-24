@@ -76,11 +76,7 @@ Run the test suite:
 python -m pytest -q
 ```
 
-## Implemented views
-
-- `GET /clients/<id>/appointments`, linked from the client record, shows every
-  appointment for that client across all dates, including the appointment kind,
-  status and booking detail.
+## Configuration
 
 Settings are read from environment variables, or from a `.env` file copied from
 `.env.example`; see [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md) for the settings,
@@ -91,6 +87,12 @@ the small-server setup and backup notes.
 - `GET /farm-run?date=YYYY-MM-DD` shows the day's active farm visits in working
   order, including property, locality, client contact, job, head count,
   estimated duration and access notes. An empty day returns an empty list.
+- `GET /clients/<id>/appointments`, linked from the client record, shows every
+  appointment for that client across all dates, including the appointment kind,
+  status and booking detail.
+- `GET/POST /appointments/<id>/reschedule` provides a rescheduling form for
+  both consultation and farm-visit appointments. It reuses new-booking
+  validation, moves only the selected appointment and reports validation errors.
 
 ## Project structure
 

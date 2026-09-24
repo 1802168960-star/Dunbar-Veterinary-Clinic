@@ -19,6 +19,10 @@ project uses semantic-ish version numbers (v0.x during delivery, v1.0 at handove
 - 2026-09-20 — MSD426GXUST3-52: client appointment history across all dates,
   showing date, time, appointment kind, status and booking detail, including
   cancelled appointments.
+- 2026-09-21 — MSD426GXUST3-53: appointment rescheduling for consultations and
+  farm visits, reusing the new-booking validation rules and updating only the
+  selected appointment, and refusing to move cancelled or finished records.
+
 - 2026-09-21 — In-clinic consultation booking (`MSD426GXUST3-46`): reception
   form for one animal, one 15-minute slot and one of the two consulting rooms,
   server-side validation against the consulting timetable, a booking
