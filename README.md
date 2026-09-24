@@ -86,6 +86,12 @@ Settings are read from environment variables, or from a `.env` file copied from
 `.env.example`; see [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md) for the settings,
 the small-server setup and backup notes.
 
+## Implemented views
+
+- `GET /farm-run?date=YYYY-MM-DD` shows the day's active farm visits in working
+  order, including property, locality, client contact, job, head count,
+  estimated duration and access notes. An empty day returns an empty list.
+
 ## Project structure
 
 ```

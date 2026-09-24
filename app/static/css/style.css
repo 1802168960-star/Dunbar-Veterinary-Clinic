@@ -38,6 +38,7 @@ body {
 .brand-sub { margin-left: 10px; opacity: 0.85; font-size: 14px; }
 
 .nav a { color: #fff; text-decoration: none; opacity: 0.9; }
+.nav { display: flex; gap: 14px; }
 .nav a:hover { text-decoration: underline; }
 
 .page { max-width: 960px; margin: 0 auto; padding: 28px 20px 48px; }
@@ -79,7 +80,6 @@ h2 { margin: 26px 0 12px; font-size: 20px; }
   gap: 24px;
   margin-bottom: 24px;
 }
-
 .page-head h1 { margin: 0 0 6px; font-size: 28px; }
 .eyebrow {
   margin: 0 0 6px;
@@ -90,6 +90,33 @@ h2 { margin: 26px 0 12px; font-size: 20px; }
   text-transform: uppercase;
 }
 .lede { max-width: 68ch; margin: 0; color: var(--muted); }
+
+.date-filter {
+  min-width: min(100%, 300px);
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--card);
+}
+.date-filter label { display: block; margin-bottom: 6px; font-weight: 600; }
+.date-filter-controls { display: flex; gap: 8px; }
+.date-filter input {
+  min-width: 0;
+  flex: 1;
+  padding: 8px 10px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  font: inherit;
+}
+.date-filter button {
+  padding: 8px 12px;
+  border: 0;
+  border-radius: 6px;
+  background: var(--green);
+  color: #fff;
+  font: inherit;
+  cursor: pointer;
+}
 
 .button-link {
   display: inline-flex;
@@ -109,13 +136,14 @@ h2 { margin: 26px 0 12px; font-size: 20px; }
   border-radius: 8px;
   background: var(--card);
 }
-.data-table { width: 100%; min-width: 760px; border-collapse: collapse; }
+.data-table { width: 100%; border-collapse: collapse; min-width: 900px; }
 .data-table th,
 .data-table td { padding: 12px 14px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
 .data-table th { background: var(--green-soft); color: var(--green); font-size: 13px; letter-spacing: 0.03em; text-transform: uppercase; }
 .data-table tr:last-child td { border-bottom: 0; }
 .time-cell { font-weight: 700; white-space: nowrap; }
 .secondary-line { display: block; margin-top: 3px; color: var(--muted); font-size: 14px; }
+.notes-cell { min-width: 220px; }
 
 .kind-chip,
 .status-chip {
@@ -135,8 +163,9 @@ h2 { margin: 26px 0 12px; font-size: 20px; }
 .empty-state { padding: 28px; border: 1px dashed var(--line); border-radius: 8px; background: var(--card); }
 .empty-state h2 { margin-top: 0; }
 
-@media (max-width: 640px) {
-  .page-head { flex-direction: column; }
+@media (max-width: 720px) {
+  .page-head { align-items: stretch; flex-direction: column; }
+  .date-filter { min-width: 0; width: 100%; }
 }
 
 .footer {

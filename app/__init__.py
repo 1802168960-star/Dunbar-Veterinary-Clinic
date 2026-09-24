@@ -4,7 +4,7 @@ from pathlib import Path
 from flask import Flask
 
 from config import CONFIG_MAP
-from app.models import db
+from app.models import db, ensure_schema_compatibility
 
 
 def create_app(config=None):
@@ -35,5 +35,6 @@ def create_app(config=None):
     if app.config.get("CREATE_TABLES_ON_START", True):
         with app.app_context():
             db.create_all()
+            ensure_schema_compatibility()
 
     return app
