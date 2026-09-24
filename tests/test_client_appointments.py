@@ -113,3 +113,14 @@ def test_client_appointments_page_returns_404_for_unknown_client(client):
     response = client.get("/clients/99999/appointments")
 
     assert response.status_code == 404
+
+
+def test_client_detail_links_to_appointment_history(app, client):
+    with app.app_context():
+        saved_client = _client_with_appointments()
+        client_id = saved_client.id
+
+    page = client.get(f"/clients/{client_id}").get_data(as_text=True)
+
+    assert f"/clients/{client_id}/appointments" in page
+    assert "View appointment history" in page

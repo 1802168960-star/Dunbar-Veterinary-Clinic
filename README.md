@@ -63,6 +63,13 @@ python scripts/seed_data.py        # create the database with sample data
 python run.py                      # start the app on http://127.0.0.1:5000
 ```
 
+On Windows the same steps are wrapped in two scripts:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts\bootstrap.ps1   # venv + dependencies + .env + sample data
+powershell -ExecutionPolicy Bypass -File scripts\run.ps1         # start the app
+```
+
 Run the test suite:
 
 ```bash
@@ -71,8 +78,13 @@ python -m pytest -q
 
 ## Implemented views
 
-- `GET /clients/<id>/appointments` shows every appointment for a client across
-  all dates, including the appointment kind, status and booking detail.
+- `GET /clients/<id>/appointments`, linked from the client record, shows every
+  appointment for that client across all dates, including the appointment kind,
+  status and booking detail.
+
+Settings are read from environment variables, or from a `.env` file copied from
+`.env.example`; see [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md) for the settings,
+the small-server setup and backup notes.
 
 ## Project structure
 

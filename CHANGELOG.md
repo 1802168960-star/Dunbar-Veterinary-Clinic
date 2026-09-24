@@ -16,3 +16,24 @@ project uses semantic-ish version numbers (v0.x during delivery, v1.0 at handove
 - 2026-09-20 — MSD426GXUST3-52: client appointment history across all dates,
   showing date, time, appointment kind, status and booking detail, including
   cancelled appointments.
+
+- 2026-09-21 — In-clinic consultation booking (`MSD426GXUST3-46`): reception
+  form for one animal, one 15-minute slot and one of the two consulting rooms,
+  server-side validation against the consulting timetable, a booking
+  confirmation page, and automated tests.
+- 2026-09-21 — Deployment configuration: `.env` support with a checked-in
+  `.env.example`, bootstrap and run scripts for Windows and Unix, a WSGI entry
+  point, and a deployment guide (`docs/DEPLOYMENT.md`).
+- 2026-09-22 — Client records (`MSD426GXUST3-39`): the front desk can add a
+  client with the required full name and phone number plus optional email,
+  postal address, notes and SMS consent, with the rules in
+  `app/services/records.py`, the new client shown at once in the client list,
+  and automated tests for the valid and invalid paths.
+- 2026-09-23 — Viewing and correcting a client record (`MSD426GXUST3-40`): each
+  client in the register now has a page of their own showing the details on
+  file alongside their animals and farm properties, with a correction form
+  that leads on from it. The same rules validate an addition and a
+  correction, a rejected correction leaves the register untouched, and the
+  record is changed in place so the client id and every booking already made
+  against it survive. Automated tests cover the read path, the write path and
+  the rejected paths.
