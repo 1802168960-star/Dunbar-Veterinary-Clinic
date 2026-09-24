@@ -14,7 +14,7 @@ Rules taken from the case study and the photocopied appointment book page
 """
 from datetime import date, datetime, time, timedelta
 
-from app.models import CONSULTATION, FARM_VISIT, STATUS_BOOKED, Appointment
+from app.models import CONSULTATION, FARM_VISIT, STATUS_BOOKED, STATUS_CANCELLED, Appointment
 
 SLOT_MINUTES = 15
 CONSULTING_ROOMS = (1, 2)
@@ -156,6 +156,21 @@ def reschedule_appointment(
         return problems
 
     return ["Unsupported appointment kind."]
+
+
+def farm_run_for_day(day):
+    """Return the day's active farm visits in the order they are worked."""
+    return (
+        Appointment.query.filter(
+            Appointment.kind == FARM_VISIT,
+            Appointment.date == day,
+            Appointment.status != STATUS_CANCELLED,
+        )
+        .order_by(Appointment.start_time.asc(), Appointment.id.asc())
+        .all()
+    )
+
+
 def appointments_for_client(client_id):
     """Return every appointment for a client in chronological order."""
     return (

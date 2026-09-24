@@ -13,6 +13,9 @@ project uses semantic-ish version numbers (v0.x during delivery, v1.0 at handove
   clients, animals, properties and the two kinds of appointments, consulting
   timetable rules and booking validation helpers, pytest suite, GitHub Actions
   CI, pull request template, and a seed script with the case study's sample data.
+- 2026-09-20 — MSD426GXUST3-51: ordered farm run view showing property,
+  locality, client contact, job, head count, estimated time and access notes;
+  cancelled visits are excluded.
 - 2026-09-20 — MSD426GXUST3-52: client appointment history across all dates,
   showing date, time, appointment kind, status and booking detail, including
   cancelled appointments.
