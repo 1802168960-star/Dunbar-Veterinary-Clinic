@@ -76,6 +76,28 @@ Run the test suite:
 python -m pytest -q
 ```
 
+## Configuration
+
+Settings are read from environment variables, or from a `.env` file copied from
+`.env.example`; see [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md) for the settings,
+the small-server setup and backup notes.
+
+## Implemented views
+
+- `GET/POST /appointments/<id>/cancel` cancels a live booking without deleting
+  its record. Cancelled appointments remain visible and are distinguishable
+  from live bookings; completed and no-show records are protected from
+  cancellation, and no other appointment is changed.
+- `GET /farm-run?date=YYYY-MM-DD` shows the day's active farm visits in working
+  order, including property, locality, client contact, job, head count,
+  estimated duration and access notes. An empty day returns an empty list.
+- `GET /clients/<id>/appointments`, linked from the client record, shows every
+  appointment for that client across all dates, including the appointment kind,
+  status and booking detail.
+- `GET/POST /appointments/<id>/reschedule` provides a rescheduling form for
+  both consultation and farm-visit appointments. It reuses new-booking
+  validation, moves only the selected appointment and reports validation errors.
+
 ## Offline operation
 
 - Open `/offline-status` to check that the application is using local SQLite
@@ -83,10 +105,6 @@ python -m pytest -q
 - Automated tests verify that the default database is local, that records
   survive an application restart, and that templates/static files do not depend
   on a CDN or other external HTTP resource.
-
-Settings are read from environment variables, or from a `.env` file copied from
-`.env.example`; see [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md) for the settings,
-the small-server setup and backup notes.
 
 ## Project structure
 
