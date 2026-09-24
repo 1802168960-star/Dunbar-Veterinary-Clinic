@@ -76,6 +76,12 @@ Run the test suite:
 python -m pytest -q
 ```
 
+## Implemented views
+
+- `GET /clients/<id>/appointments`, linked from the client record, shows every
+  appointment for that client across all dates, including the appointment kind,
+  status and booking detail.
+
 Settings are read from environment variables, or from a `.env` file copied from
 `.env.example`; see [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md) for the settings,
 the small-server setup and backup notes.

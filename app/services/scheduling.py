@@ -112,3 +112,16 @@ def farm_run_for_day(day):
         .order_by(Appointment.start_time.asc(), Appointment.id.asc())
         .all()
     )
+
+
+def appointments_for_client(client_id):
+    """Return every appointment for a client in chronological order."""
+    return (
+        Appointment.query.filter(Appointment.client_id == client_id)
+        .order_by(
+            Appointment.date.asc(),
+            Appointment.start_time.asc(),
+            Appointment.id.asc(),
+        )
+        .all()
+    )
