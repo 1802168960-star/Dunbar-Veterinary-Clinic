@@ -1,7 +1,7 @@
 """Home, farm run and health endpoints."""
 from datetime import date
 
-from flask import Blueprint, abort, render_template, request
+from flask import Blueprint, render_template, request
 
 from app.services.scheduling import farm_run_for_day
 
@@ -16,11 +16,13 @@ def index():
 @main_bp.get("/farm-run")
 def farm_run():
     raw_date = request.args.get("date")
+    date_error = None
     if raw_date:
         try:
             selected_date = date.fromisoformat(raw_date)
         except ValueError:
-            abort(400, description="Date must be in YYYY-MM-DD format.")
+            selected_date = date.today()
+            date_error = "Date must be in YYYY-MM-DD format. Showing today instead."
     else:
         selected_date = date.today()
 
@@ -28,6 +30,7 @@ def farm_run():
         "farm_run.html",
         selected_date=selected_date,
         visits=farm_run_for_day(selected_date),
+        date_error=date_error,
     )
 
 

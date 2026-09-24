@@ -21,6 +21,14 @@
   </form>
 </section>
 
+{% if date_error %}
+<div class="alert alert-error" role="alert">{{ date_error }}</div>
+{% endif %}
+
+<p class="hint">
+  Cancelled visits are excluded. Completed and no-show visits remain in the historical run record.
+</p>
+
 {% if visits %}
 <div class="table-wrap">
   <table class="data-table">

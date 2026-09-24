@@ -128,7 +128,8 @@ def test_farm_run_page_handles_an_empty_day(app, client):
     assert "No farm visits scheduled" in response.get_data(as_text=True)
 
 
-def test_farm_run_page_rejects_an_invalid_date(client):
+def test_farm_run_page_handles_an_invalid_date(client):
     response = client.get("/farm-run?date=11-08-2026")
 
-    assert response.status_code == 400
+    assert response.status_code == 200
+    assert "Date must be in YYYY-MM-DD format" in response.get_data(as_text=True)

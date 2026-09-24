@@ -36,6 +36,17 @@ def _utcnow():
     return datetime.now(timezone.utc)
 
 
+def ensure_schema_compatibility():
+    """Apply the small schema upgrades that ``create_all`` cannot perform."""
+    inspector = sa.inspect(db.engine)
+    if "appointments" not in inspector.get_table_names():
+        return
+    columns = {column["name"] for column in inspector.get_columns("appointments")}
+    if "head_count" not in columns:
+        with db.engine.begin() as connection:
+            connection.execute(sa.text("ALTER TABLE appointments ADD COLUMN head_count INTEGER"))
+
+
 class Client(db.Model):
     """A household or a farming business."""
 
