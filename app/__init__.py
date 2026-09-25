@@ -28,11 +28,13 @@ def create_app(config=None):
     from app.routes.clients import clients_bp
     from app.routes.consultations import consultations_bp
     from app.routes.main import main_bp
+    from app.routes.offline import offline_bp
     from app.routes.rescheduling import rescheduling_bp
 
     app.register_blueprint(appointments_bp)
     app.register_blueprint(clients_bp)
     app.register_blueprint(consultations_bp)
+    app.register_blueprint(offline_bp)
     app.register_blueprint(main_bp)
     app.register_blueprint(rescheduling_bp)
 
